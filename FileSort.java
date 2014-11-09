@@ -1,13 +1,13 @@
 /**
- * Sorts files to the correct folder on the external hard drive.
+ * Sorts files to the correct folder on the specified external hard drive.
  * 
- * 1. Creates a list of files that need to be moved.
- * 2. Creates a mapping list to direct where each file should be moved to.
- * 3. Moves the files to the destination folder specified on the mapping list.
+ * 1. Takes user input of the path on the external hard drive where the files will move to.
+ * 2. Creates a list of files that need to be moved.
+ * 3. Moves the files to the destination folder according to the file name.
  * 
  * Preconditions:
- *  - Source files must be in the directory "~/Downloads/Sort"
- * 	- Files in "Sort" folder must be in the format of "[Name] xxxxxx.xxx"
+ * - Source files must be in the directory "~/Downloads/Sort"
+ * - Files in "Sort" folder must be in the format of "[Name] xxxxxx.xxx"
  * 
  * Version info:
  * 2.0	- Added summary
@@ -33,7 +33,7 @@ public class FileSort
 {
 	// Define directories.
 	public static final File SOURCE = new File(System.getProperty("user.home") + "/Downloads/Sort"); // Files to sort.
-	public static final String EXTERNAL = "/Volumes/KTAN PHOTOS/";
+	public static final String EXTERNAL = "/Volumes/KTAN PHOTOS/"; // Destination of files.
 	
 	public static ArrayList<String> sourceList = new ArrayList<String>(); // List of files on computer.
 	public static int successCounter = 0, failCounter = 0; // Keeps track of how many files were moved or failed.
