@@ -58,13 +58,13 @@ public class FileSort
 	}
 	
 	/**
-	 * Gets the folder the file will move to by removing the last 11 characters.
+	 * Gets the folder the file will move to by removing the last  characters.
 	 * @param file the file that will be moved.
 	 * @return folder that the file will move to.
 	 */
 	public static String getFolder(String file)
 	{
-		return file.substring(0, file.length()-11);
+		return file.substring(0, file.length() - 11);
 	}
 	
 	/**
@@ -108,7 +108,7 @@ public class FileSort
 	    	Path destinationPath = Paths.get(destination + "/" + destinationName + "/" + sourceList.get(i));
 	    	
 	    	// PRINT
-	    	System.out.println("Moving:\t" + sourceList.get(i) + "\nTo:\t" + destinationName); 
+	    	System.out.println("Moving:\t" + sourceList.get(i) + "\nTo:\t" + destination + "/" + destinationName); 
 
 	    	try 
 	    	{
