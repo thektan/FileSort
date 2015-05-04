@@ -9,18 +9,9 @@
  * - Source files must be in the directory "~/Downloads/Sort"
  * - Files in "Sort" folder must be in the format of "[Name] xxxxxx.xxx"
  * 
- * Version info:
- * 2.0	- Added summary
- * 		- Simplified information when moving files
- * 3.0	- Made directories as final values
- * 		- Added timer
- * 		- Removed destination list
- * 4.0 	- Optimized code by removing mapping list
- * 		- Cleaned code
- * 
  * @author Kevin Tan
- * @version 4.0
- * @date 11/08/2014
+ * @version 5.0
+ * @date 05/03/2015
  */
 import java.io.File;
 import java.io.IOException;
@@ -32,12 +23,15 @@ import java.util.ArrayList;
 public class FileSort 
 {
 	// Define directories.
-	public static final File SOURCE = new File(System.getProperty("user.home") + "/Downloads/Sort"); // Files to sort.
-	public static final String EXTERNAL = "/Volumes/KTAN PHOTOS/"; // Destination of files.
-	
+	// *************** DEFINE SOURCE AND EXTERNAL PATHS ***************
+	public static final File SOURCE = new File(System.getProperty("user.home") + "/"); // Files to sort.
+	public static final String EXTERNAL = "/"; // Destination of files.
+	// ****************************************************************
+
 	public static ArrayList<String> sourceList = new ArrayList<String>(); // List of files on computer.
 	public static int successCounter = 0, failCounter = 0; // Keeps track of how many files were moved or failed.
-	
+	public static int newDirectoryCounter = 0; // Keeps track of the amount of new directories created.
+
 	// Times how long it took to move all the files.
 	public static long start, stop;
 	
@@ -73,8 +67,13 @@ public class FileSort
 	 */
 	public static void main(String[] args) 
 	{
+		System.out.println("-----------------------------------------");
+		System.out.println("---             File Sort             ---");
+		System.out.println("---            Version 5.0            ---");
+		System.out.println("-----------------------------------------\n");
+
 		// Get the destination of where the folders are from user input.
-		File destination = new File(EXTERNAL + args[0]);
+		File destination = new File(EXTERNAL);
 		
 		// Get file names and add them to a list.
 		File[] filesToSort = SOURCE.listFiles(); 
@@ -87,14 +86,13 @@ public class FileSort
 		removeHidden(sourceList);
 		
 		// PRINT Source List
-		System.out.println("Source files (to be sorted):"
-				+ "\n-----------------------------------------");
+		System.out.println("Source files (to be sorted):");
+
 	    for (int i = 0; i < sourceList.size(); i++) 
 		      System.out.println(sourceList.get(i));
 		    
 	    // Move the files to the correct folder.
-		System.out.println("\nBegin moving files:"
-				+ "\n-----------------------------------------");
+		System.out.println("\nBegin moving files:");
 		
 		start = System.nanoTime(); // Start timer.
 		
@@ -114,7 +112,11 @@ public class FileSort
 	    	{
 	    		// Create a new folder if the folder doesn't exist.
 	    		boolean result = new File(destination + "/" + destinationName).mkdir();
-	    		if (result) System.out.println("*New directory created:\t" + destination + "/" + destinationName); // PRINT
+	    		if (result) 
+	    		{
+	    			System.out.println("* New directory created:\t" + destination + "/" + destinationName); // PRINT
+	    			newDirectoryCounter++;
+	    		}
 
 	    		System.out.print("Status:\t");
 				Files.move(sourcePath, destinationPath); // Move files to destination.
@@ -134,19 +136,28 @@ public class FileSort
 	    stop /= 1000000000; // Convert to seconds.
 	    
 	    // PRINT
-	    System.out.println("\nSummary:"
-				+ "\n-----------------------------------------");
+	    System.out.println("\n-----------------------------------------");
+	    System.out.println("---              Summary              ---");
+	    System.out.println("-----------------------------------------");
+
 	    // If more than 60 seconds, print out minutes and seconds separately.
 	    if (stop >= 60)
 	    {
 	    	long min = stop/60;
 	    	long rsec = stop - min*60;
-	    	System.out.println("Time elapsed: " + min + "min " + rsec + "s");
+	    	System.out.println("Time elapsed: ...................... " + min + "min " + rsec + "s");
 	    }
 	    else
-	    	System.out.println("Time elapsed: " + stop + "s");
-	    System.out.println("Files successfully moved: " + successCounter); 
-	    System.out.println("Files failed to moved: " + failCounter);
+	    {
+	    	System.out.println("Time elapsed: ...................... " + stop + "s");
+	    }
+
+	    System.out.println("Files to be moved: ................. "	+ sourceList.size());
+	    System.out.println("Files successfully moved: .......... "	+ successCounter); 
+	    System.out.println("Files failed to moved: ............. "	+ failCounter);
+	    System.out.println("New directories created: ........... " 	+ newDirectoryCounter);
+
+	    if (failCounter == 0) System.out.println("\n***** File Sort Successful! *****\n");
 	}
 
 }
