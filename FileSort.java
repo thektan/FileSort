@@ -13,15 +13,10 @@ import java.util.ArrayList;
 
 public class FileSort
 {
-	// Define directories.
-	// *************** DEFINE SOURCE AND DESTINATION PATHS ***************
-	public static final File SOURCE = new File(System.getProperty("user.home") + "/"); // Files to sort.
-	public static final String DESTINATION = "/"; // Destination of files.
-	// ****************************************************************
-
 	public static ArrayList<String> sourceList = new ArrayList<String>(); // List of files on computer.
-	public static int successCounter = 0, failCounter = 0; // Keeps track of how many files were moved or failed.
-	public static int newDirectoryCounter = 0; // Keeps track of the amount of new directories created.
+	public static int successCounter 		= 0; // Keeps track of how many files moved.
+	public static int failCounter 			= 0; // Keeps track of how many files failed.
+	public static int newDirectoryCounter 	= 0; // Keeps track of the amount of new directories created.
 
 	// Times how long it took to move all the files.
 	public static long start, stop;
@@ -63,11 +58,26 @@ public class FileSort
 		System.out.println("---            Version 5.0            ---");
 		System.out.println("-----------------------------------------\n");
 
-		// Get the destination of where the folders are from user input.
-		File destination = new File(DESTINATION);
+		// Check if arguments are present.
+		if (args.length < 2)
+		{
+			System.out.println("Usage:\t java FileSort [source path] [destination path]\n");
+			System.exit(1);
+		}
+
+		// Get source and destination directories from user input.
+		File source = new File(args[0]);
+		File destination = new File(args[1]);
 
 		// Get file names and add them to a list.
-		File[] filesToSort = SOURCE.listFiles();
+		File[] filesToSort = source.listFiles();
+
+		// Check if the directory has any files.
+		if (filesToSort.length < 2)
+		{
+			System.out.println("Nothing to sort in: " + args[0] + "\n");
+			System.exit(1);
+		}
 
 		// Add file names to a string list.
 		for (int i = 0; i < filesToSort.length; i++)
@@ -94,7 +104,7 @@ public class FileSort
 			String destinationName = getFolder(sourceList.get(i));
 
 			// Get paths.
-			Path sourcePath = Paths.get(SOURCE + "/" + sourceList.get(i));
+			Path sourcePath = Paths.get(source + "/" + sourceList.get(i));
 			Path destinationPath = Paths.get(destination + "/" + destinationName + "/" + sourceList.get(i));
 
 			System.out.println("Moving:\t" + sourceList.get(i) + "\n");
