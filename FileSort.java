@@ -97,7 +97,8 @@ public class FileSort
 			Path sourcePath = Paths.get(SOURCE + "/" + sourceList.get(i));
 			Path destinationPath = Paths.get(destination + "/" + destinationName + "/" + sourceList.get(i));
 
-			System.out.println("Moving:\t" + sourceList.get(i) + "\nTo:\t" + destination + "/" + destinationName);
+			System.out.println("Moving:\t" + sourceList.get(i) + "\n");
+			System.out.println("To:\t" + destination + "/" + destinationName);
 
 			try
 			{
@@ -120,7 +121,9 @@ public class FileSort
 			catch (IOException e)
 			{
 				failCounter++;
-				System.out.print("*****FAIL*****\n" + e.toString() + "\n");
+
+				System.out.print("*****FAIL*****\n");
+				System.out.print(e.toString() + "\n");
 			}
 
 			System.out.print("\n");
@@ -129,15 +132,17 @@ public class FileSort
 		stop = System.nanoTime() - start; // Stop timer.
 		stop /= 1000000000; // Convert to seconds.
 
-		System.out.println("\n-----------------------------------------");
+		System.out.print("\n");
+		System.out.println("-----------------------------------------");
 		System.out.println("---             Summary               ---");
 		System.out.println("-----------------------------------------");
 
 		// If more than 60 seconds, print out minutes and seconds separately.
 		if (stop >= 60)
 		{
-			long min = stop/60;
-			long rsec = stop - min*60;
+			long min = stop / 60;
+			long rsec = stop - min * 60;
+
 			System.out.println("Time elapsed: ...................... " + min + "min " + rsec + "s");
 		}
 		else
