@@ -14,9 +14,9 @@ import java.util.ArrayList;
 public class FileSort
 {
 	// Define directories.
-	// *************** DEFINE SOURCE AND EXTERNAL PATHS ***************
+	// *************** DEFINE SOURCE AND DESTINATION PATHS ***************
 	public static final File SOURCE = new File(System.getProperty("user.home") + "/"); // Files to sort.
-	public static final String EXTERNAL = "/"; // Destination of files.
+	public static final String DESTINATION = "/"; // Destination of files.
 	// ****************************************************************
 
 	public static ArrayList<String> sourceList = new ArrayList<String>(); // List of files on computer.
@@ -64,7 +64,7 @@ public class FileSort
 		System.out.println("-----------------------------------------\n");
 
 		// Get the destination of where the folders are from user input.
-		File destination = new File(EXTERNAL);
+		File destination = new File(DESTINATION);
 
 		// Get file names and add them to a list.
 		File[] filesToSort = SOURCE.listFiles();
