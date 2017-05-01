@@ -107,7 +107,7 @@ public class FileSort
 			Path sourcePath = Paths.get(source + "/" + sourceList.get(i));
 			Path destinationPath = Paths.get(destination + "/" + destinationName + "/" + sourceList.get(i));
 
-			System.out.println("Moving:\t" + sourceList.get(i) + "\n");
+			System.out.println("Moving:\t" + sourceList.get(i));
 			System.out.println("To:\t" + destination + "/" + destinationName);
 
 			try
